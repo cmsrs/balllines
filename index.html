@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <title>Ball lines - cmsRS</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <link href="css/fontfaces.css" media="screen" rel="stylesheet" type="text/css" >
+    <link href="css/game.css" media="screen" rel="stylesheet" type="text/css" >
+    <link href="css/mobile.css" media="screen" rel="stylesheet" type="text/css" >
+</head>
+<body>
+    <header>
+        <a href="http://www.cmsrs.pl" id="logo_game"><span class="cms">cms</span><span class="rs">RS</span></a><h1 id="title">Ball lines</h1>
+    </header>
+    <div id="msg"></div>
+    <div id="game">
+        <div class="game-board" id="game-board"  ></div>
+        <div id="square-size" class="square-size"></div>
+        <div id="score" class="clearfix">
+            <div class="you"><span id="you"></span>: <span class="red" id="you_score"></span></div>
+        </div>
+    </div>
+    <div id="error"></div>
+    <script src="lib/modernizr.custom.js"></script>
+    <script src="lib/astar.js"></script> 
+
+    <script src="scripts/loader.js"></script>
+    <script src="scripts/game.logic.js"></script> 
+    <script src="scripts/display.canvas.js"></script> 
+
+</body>
+</html>
