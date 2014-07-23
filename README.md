@@ -14,3 +14,4 @@ Game was written in pure JavaScript and HTML5, CSS3, includes two library:
 You can play with my game on page:
 
 http://www.cmsrs.pl/en/projects/kulki
+
