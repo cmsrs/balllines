@@ -249,13 +249,18 @@ display = (function() {
 
         var widthGame = cols  * ticSize;
 
-        var el_h1 =  document.getElementsByTagName('h1');
+
         var el_header =  document.getElementsByTagName('header');
-        el_header[0].style.width = widthGame + "px";
-        el_header[0].style.height = ticSize + "px";
+        if( el_header.length  ){
+            el_header[0].style.width = widthGame + "px";
+            el_header[0].style.height = ticSize + "px";
+        }
         document.getElementById('score').style.width = widthGame + "px";
 
-        el_h1[0].textContent = ttt.text[lang].title;
+        var el_h1 =  document.getElementsByTagName('h1');
+        if( el_h1.length  ){
+            el_h1[0].textContent = ttt.text[lang].title;
+        }
         document.getElementById('you').textContent = ttt.text[lang].score;
         document.getElementById('clear').textContent = ttt.text[lang].clear;
     }
