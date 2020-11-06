@@ -63,6 +63,9 @@ var conf = {
 if (Modernizr.canvas ){
 
     window.addEventListener("load", function() {
+        if( lang ){
+            conf.lang =  lang;
+        }
 
         var jewelProto = document.getElementById("square-size");
         var rect = jewelProto.getBoundingClientRect();
