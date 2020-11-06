@@ -15,3 +15,11 @@ You can play with my game on page:
 
 http://www.cmsrs.pl/en/projects/kulki
 
+
+Run the game:
+
+```bash
+git clone  https://github.com/cmsrs/balllines.git
+cd balllines/
+firefox ./index.html
+```
