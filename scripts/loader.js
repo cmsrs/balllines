@@ -63,7 +63,7 @@ var conf = {
 if (Modernizr.canvas ){
 
     window.addEventListener("load", function() {
-        if( lang ){
+        if(typeof  lang !==  'undefined' ){
             conf.lang =  lang;
         }
 
