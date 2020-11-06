@@ -2,24 +2,24 @@ display = (function() {
     var
         color_ball,
         lang,
-        cols, 
-        rows, 
+        cols,
+        rows,
         blank,
         path,
         matrix_rand,
         matrix_next,
-        game_over, 
+        game_over,
         div_msg,
 
-        ticSize, 
-        ticPadding, 
-        ticPaddingMark, 
-        ticPaddingX, 
-        ticWidth, 
-        ticWidthX, 
+        ticSize,
+        ticPadding,
+        ticPaddingMark,
+        ticPaddingX,
+        ticWidth,
+        ticWidthX,
         sizeLoader,
-        theme_black, 
-        theme_logo_red,  
+        theme_black,
+        theme_logo_red,
 
         ctx,
         canvas;
@@ -37,18 +37,40 @@ display = (function() {
 
         matrix_rand =  logic.getEmptyMatrix();
 
-        matrix_rand =  logic.getRandomMatrix( matrix_rand,  conf.action.balls_init_no  );
+        var balllines_matrix_rand = JSON.parse(localStorage.getItem('balllines_matrix_rand'));
+        if(balllines_matrix_rand){
+          matrix_rand = logic.copyMarix( balllines_matrix_rand );
+        }else{
+          matrix_rand =  logic.getRandomMatrix( matrix_rand,  conf.action.balls_init_no  );
+        }
         drawBalls( matrix_rand, 'o' , ticPadding, 0 );
 
-        matrix_next =   logic.getRandomMatrix( matrix_rand,  conf.action.balls_next_no );
+        var balllines_matrix_next = JSON.parse(localStorage.getItem('balllines_matrix_next'));
+        if(balllines_matrix_next){
+          matrix_next = logic.copyMarix( balllines_matrix_next );
+        }else{
+          matrix_next = logic.getRandomMatrix( matrix_rand,  conf.action.balls_next_no );
+        }
+
         drawBalls( matrix_next, 'x', ticPadding, 0  );
 
         path = { 'init':0, 'start_x':'', 'start_y':'' };
         canvas.addEventListener("click",  clickBall, false);
+        document.getElementById('clear').addEventListener("click",  clearBoard, false);
     }
 
     function drawScore(){
-        document.getElementById('you_score').textContent =  logic.getScore();
+        document.getElementById('you_score').textContent = logic.getScore();
+    }
+
+    function clearBoard(){
+      setTimeout(function(){
+          boardElement.removeChild(canvas);
+          initialize( conf  );
+      },1000);
+      localStorage.removeItem('balllines_matrix_next');
+      localStorage.removeItem('balllines_matrix_rand');
+      localStorage.removeItem('balllines_score');
     }
 
     function clickBall(e){
@@ -64,23 +86,23 @@ display = (function() {
         ticX = Math.floor( (relX / rect.width) * cols);
         ticY = Math.floor( (relY / rect.width) * rows);
 
-        // gdy pomlil nam sie punkt startu 
+        // gdy pomlil nam sie punkt startu
         if( (  path.init == 1  ) && (path.start_x == ticX) &&  ( path.start_y == ticY)  ){
-            //console.log( "=mistake=" ); 
+            //console.log( "=mistake=" );
 
             createBackgroundItem( ticX, ticY );
             drawTic(  ticX, ticY, matrix_rand[ticX][ticY], 'o', ticPadding );
-            
+
             path.init = 0;
             path.start_x = '';
             path.start_y = '';
 
         }
 
-        // definijujemy punkt startu  
-        // tego w ife nie moze byc path.init == 0 
+        // definijujemy punkt startu
+        // tego w ife nie moze byc path.init == 0
         else if( ( matrix_rand[ticX][ticY] != blank )   ){
-            //console.log( "punkt_start" ); 
+            //console.log( "punkt_start" );
 
             drawBalls( matrix_rand, 'o',  ticPadding, 1  );
             var color =  matrix_rand[ticX][ticY];
@@ -88,14 +110,14 @@ display = (function() {
 
             path.start_x = ticX;
             path.start_y = ticY;
-            path.color =   color; 
+            path.color =   color;
             path.init = 1;
 
         }
 
-        // definijujemy punkt stopu 
+        // definijujemy punkt stopu
         else if( ( matrix_rand[ticX][ticY] == blank ) && (  path.init == 1  )   ){
-            //console.log( "punkt_stop" ); 
+            //console.log( "punkt_stop" );
 
             path.stop_x = ticX;
             path.stop_y = ticY;
@@ -142,18 +164,26 @@ display = (function() {
             if( matrix_next == false  ){
                 div_msg.textContent =   conf.text[lang].game_over;
                 game_over = true;
+                clearBoard();
 
-                setTimeout(function(){
-                    boardElement.removeChild(canvas);
-                    initialize( conf  );
-                },6000);
+                // localStorage.removeItem('balllines_matrix_rand');
+                // localStorage.removeItem('balllines_matrix_next');
+                // setTimeout(function(){
+                //     boardElement.removeChild(canvas);
+                //     initialize( conf  );
+                // },6000);
 
                 return false;
             }
             drawBalls( matrix_next, 'x', ticPadding, 0  );
         }
+        localStorage.setItem('balllines_matrix_rand',  JSON.stringify(matrix_rand));
+        localStorage.setItem('balllines_matrix_next',  JSON.stringify(matrix_next));
+        var logicScore = logic.getScore();
+        localStorage.setItem('balllines_score',  JSON.stringify(logicScore))
+
     }
-    
+
     function delBalls( matrix_ball_to_del  ){
 
         for (var x=0;x<cols;x++) {
@@ -221,12 +251,13 @@ display = (function() {
 
         var el_h1 =  document.getElementsByTagName('h1');
         var el_header =  document.getElementsByTagName('header');
-        el_header[0].style.width = widthGame + "px"; 
-        el_header[0].style.height = ticSize + "px"; 
-        document.getElementById('score').style.width = widthGame + "px"; 
-        
+        el_header[0].style.width = widthGame + "px";
+        el_header[0].style.height = ticSize + "px";
+        document.getElementById('score').style.width = widthGame + "px";
+
         el_h1[0].textContent = ttt.text[lang].title;
         document.getElementById('you').textContent = ttt.text[lang].score;
+        document.getElementById('clear').textContent = ttt.text[lang].clear;
     }
 
     function createBackground( ){
@@ -237,7 +268,7 @@ display = (function() {
             for (var y=0;y<rows;y++) {
                 createBackgroundItem( x,y );
             }
-        } 
+        }
     }
 
     function createBackgroundItem( x,y ){
@@ -249,16 +280,16 @@ display = (function() {
 
 
     function drawO( octx, start_x, start_y, color_num, ticPadding_inner   ){
-        var half = Math.floor(ticSize/2); 
-        var r =  half - ticPadding_inner; 
-  
+        var half = Math.floor(ticSize/2);
+        var r =  half - ticPadding_inner;
+
         octx.beginPath();
         octx.arc(  start_x + half, start_y + half,  r  , 0, 2 * Math.PI, false);
 
         octx.fillStyle =  color_ball[color_num];   //color_ball.1;
         octx.fill();
         octx.lineWidth =  ticWidth;
-        octx.strokeStyle =  color_ball[color_num]; 
+        octx.strokeStyle =  color_ball[color_num];
         octx.stroke();
 
     }
@@ -269,7 +300,7 @@ display = (function() {
         var x_stop_point = start_x + endP;
         var y_start_point =  start_y +  ticPaddingX;
         var y_stop_point =  start_y + endP;
-        
+
         xctx.beginPath();
         xctx.moveTo( x_start_point , y_start_point );
         xctx.lineTo( x_stop_point  , y_stop_point  );
@@ -280,12 +311,12 @@ display = (function() {
         xctx.strokeStyle = color_ball[color_num];
         xctx.stroke();
     }
- 
+
 
     function drawTic( x_p, y_p,  color_num, tic, ticPadding_in  ){
         //w innych miejscach tez to dalem - wtedy bedzie to nadmiarowe
         //x -> o dlatego to dalem
-        createBackgroundItem( x_p, y_p ); 
+        createBackgroundItem( x_p, y_p );
         var x_start = x_p * ticSize;
         var y_start = y_p * ticSize;
         ( tic == 'o'   ) ?  drawO(ctx, x_start, y_start,   color_num, ticPadding_in  ) :  drawX(ctx, x_start, y_start, color_num  );
