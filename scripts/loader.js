@@ -74,7 +74,7 @@ if (Modernizr.canvas ){
         var balllines_score =  JSON.parse(localStorage.getItem('balllines_score'));
         if(balllines_score){
           conf.action.score = balllines_score;
-          localStorage.removeItem('balllines_score');
+          //localStorage.removeItem('balllines_score');
         }else{
           conf.action.score = 0;
         }
