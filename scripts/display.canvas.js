@@ -66,11 +66,12 @@ display = (function() {
     function clearBoard(){
       setTimeout(function(){
           boardElement.removeChild(canvas);
+          localStorage.removeItem('balllines_matrix_next');
+          localStorage.removeItem('balllines_matrix_rand');
+          localStorage.removeItem('balllines_score');
+          conf.action.score = 0;
           initialize( conf  );
       },1000);
-      localStorage.removeItem('balllines_matrix_next');
-      localStorage.removeItem('balllines_matrix_rand');
-      localStorage.removeItem('balllines_score');
     }
 
     function clickBall(e){
