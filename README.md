@@ -9,9 +9,9 @@ Game was written in pure JavaScript and HTML5, CSS3, includes two library:
 
 1. modernizr - check that web browser have been embedded in Canvas,
 
-2. javascript-astar - assign the shortest path ball from one point to another with: "A* Search Algorithm". Library is available on web site: http://github.com/bgrins/javascript-astar
+2. javascript-astar - assign the shortest path ball from one point to another with: "A* Search Algorithm". Library is available on the web site: http://github.com/bgrins/javascript-astar
 
-You can play with my game on page:
+You can play with my game on the page:
 
 http://www.cmsrs.pl/en/projects/kulki
 
