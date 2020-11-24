@@ -71,7 +71,7 @@ display = (function() {
           localStorage.removeItem('balllines_score');
           conf.action.score = 0;
           initialize( conf  );
-      },1000);
+      },4000);
     }
 
     function clickBall(e){
