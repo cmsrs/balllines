@@ -1,5 +1,10 @@
 display = (function() {
     var
+        ver,
+        balllines_matrix_rand,
+        balllines_matrix_next,
+        balllines_score,
+
         color_ball,
         lang,
         cols,
@@ -25,6 +30,11 @@ display = (function() {
         canvas;
 
     function initialize( conf ){
+        ver = conf.ver;
+        //balllines_matrix_rand = 'balllines_matrix_rand'+ver;
+        //balllines_matrix_next = 'balllines_matrix_next'+ver; 
+        //balllines_score = 'balllines_score'+ver;
+
         blank = conf.action.blank;
         setup( conf  );
         div_msg =  document.getElementById('msg');
@@ -37,7 +47,17 @@ display = (function() {
 
         matrix_rand =  logic.getEmptyMatrix();
 
-        var balllines_matrix_rand = JSON.parse(localStorage.getItem('balllines_matrix_rand'));
+        if( '1'  === ver  ){
+            var balllines_matrix_rand = JSON.parse(localStorage.getItem('balllines_matrix_rand1'));
+        }
+        if( '2'  === ver  ){
+            var balllines_matrix_rand = JSON.parse(localStorage.getItem('balllines_matrix_rand2'));
+        }
+        if( '3'  === ver  ){
+            var balllines_matrix_rand = JSON.parse(localStorage.getItem('balllines_matrix_rand3'));
+        }
+
+
         if(balllines_matrix_rand){
           matrix_rand = logic.copyMarix( balllines_matrix_rand );
         }else{
@@ -45,7 +65,16 @@ display = (function() {
         }
         drawBalls( matrix_rand, 'o' , ticPadding, 0 );
 
-        var balllines_matrix_next = JSON.parse(localStorage.getItem('balllines_matrix_next'));
+        if( '1'  === ver  ){
+            var balllines_matrix_next = JSON.parse(localStorage.getItem('balllines_matrix_next1'));
+        }
+        if( '2'  === ver  ){
+            var balllines_matrix_next = JSON.parse(localStorage.getItem('balllines_matrix_next2'));
+        }
+        if( '3'  === ver  ){
+            var balllines_matrix_next = JSON.parse(localStorage.getItem('balllines_matrix_next3'));
+        }
+
         if(balllines_matrix_next){
           matrix_next = logic.copyMarix( balllines_matrix_next );
         }else{
@@ -66,9 +95,25 @@ display = (function() {
     function clearBoard(){
       setTimeout(function(){
           boardElement.removeChild(canvas);
-          localStorage.removeItem('balllines_matrix_next');
-          localStorage.removeItem('balllines_matrix_rand');
-          localStorage.removeItem('balllines_score');
+
+          if( '1'  === ver  ){
+                  localStorage.removeItem('balllines_matrix_next1');
+                  localStorage.removeItem('balllines_matrix_rand1');
+                  localStorage.removeItem('balllines_score1');
+          }
+
+          if( '2'  === ver  ){
+                  localStorage.removeItem('balllines_matrix_next2');
+                  localStorage.removeItem('balllines_matrix_rand2');
+                  localStorage.removeItem('balllines_score2');
+          }
+
+          if( '3'  === ver  ){
+                  localStorage.removeItem('balllines_matrix_next3');
+                  localStorage.removeItem('balllines_matrix_rand3');
+                  localStorage.removeItem('balllines_score3');
+          }
+
           conf.action.score = 0;
           initialize( conf  );
       },4000);
@@ -178,10 +223,29 @@ display = (function() {
             }
             drawBalls( matrix_next, 'x', ticPadding, 0  );
         }
-        localStorage.setItem('balllines_matrix_rand',  JSON.stringify(matrix_rand));
-        localStorage.setItem('balllines_matrix_next',  JSON.stringify(matrix_next));
-        var logicScore = logic.getScore();
-        localStorage.setItem('balllines_score',  JSON.stringify(logicScore))
+
+        if( '1'  === ver  ){
+                localStorage.setItem('balllines_matrix_rand1',  JSON.stringify(matrix_rand));
+                localStorage.setItem('balllines_matrix_next1',  JSON.stringify(matrix_next));
+                var logicScore = logic.getScore();
+                localStorage.setItem('balllines_score1',  JSON.stringify(logicScore))
+        }
+        if( '2'  === ver  ){
+                localStorage.setItem('balllines_matrix_rand2',  JSON.stringify(matrix_rand));
+                localStorage.setItem('balllines_matrix_next2',  JSON.stringify(matrix_next));
+                var logicScore = logic.getScore();
+                localStorage.setItem('balllines_score2',  JSON.stringify(logicScore))
+        }
+        if( '3'  === ver  ){
+                localStorage.setItem('balllines_matrix_rand3',  JSON.stringify(matrix_rand));
+                localStorage.setItem('balllines_matrix_next3',  JSON.stringify(matrix_next));
+                var logicScore = logic.getScore();
+                localStorage.setItem('balllines_score3',  JSON.stringify(logicScore))
+        }
+
+
+
+
 
     }
 

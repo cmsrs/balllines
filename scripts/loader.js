@@ -1,5 +1,6 @@
 var conf = {
     lang : 'en',
+    ver: '',
     //lang : 'pl',
     text : {
         pl : {
@@ -33,8 +34,8 @@ var conf = {
          '#00FF00', //3  gren
          '#00FFFF', //4  light blue
          '#000000', //5  black
-
          '#8B4513', //6 brown
+
          '#FF00FF', //7  light red
          '#909090', //8 grey
          '#99FF99' //9  light green -- kiepsko widoczny kolor!!!!
@@ -68,30 +69,41 @@ if (Modernizr.canvas ){
             conf.lang =  lang;
         }
 
-        var balllinesV3  = 1;
         if(typeof  balllinesV2 !==  'undefined' ){
+            conf.ver = '2';	
             conf.action.rows = 8;	
             conf.action.cols = 8;	
             conf.action.len = 4; 
+            conf.action.balls_color_no = 7; 
             conf.text.pl.title = 'Kulki v2';
             conf.text.en.title = 'Ball lines v2';
             var jewelProto = document.getElementById(  'square-size-checkers' );
+            var rect = jewelProto.getBoundingClientRect();
+            conf.settings.ticSize = rect.width;
+
+            var balllines_score =  JSON.parse(localStorage.getItem('balllines_score2' ));
         }else if(typeof  balllinesV3 !==  'undefined' ){
+            conf.ver = '3';	
             conf.action.rows = 10;	
             conf.action.cols = 10;	
             conf.action.balls_color_no = 7; 
             conf.text.pl.title = 'Kulki v3';
             conf.text.en.title = 'Ball lines v3';
             var jewelProto = document.getElementById(   'square-size-ten'  );
+            var rect = jewelProto.getBoundingClientRect();
+            conf.settings.ticSize = rect.width;
+
+            var balllines_score =  JSON.parse(localStorage.getItem('balllines_score3' ));
         }else{
+            conf.ver = '1';	
             var jewelProto = document.getElementById(  'square-size'  );
+            var rect = jewelProto.getBoundingClientRect();
+            conf.settings.ticSize = rect.width;
+
+            var balllines_score =  JSON.parse(localStorage.getItem('balllines_score1' ));
         }
 
 
-        var rect = jewelProto.getBoundingClientRect();
-        conf.settings.ticSize = rect.width;
-
-        var balllines_score =  JSON.parse(localStorage.getItem('balllines_score'));
         if(balllines_score){
           conf.action.score = balllines_score;
           //localStorage.removeItem('balllines_score');
