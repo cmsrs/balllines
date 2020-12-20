@@ -34,9 +34,10 @@ var conf = {
          '#00FFFF', //4  light blue
          '#000000', //5  black
 
-         '#FF00FF', //6  light red
-         '#909090', //7 grey
-         '#99FF99' //8  light green -- kiepsko widoczny kolor!!!!
+         '#8B4513', //6 brown
+         '#FF00FF', //7  light red
+         '#909090', //8 grey
+         '#99FF99' //9  light green -- kiepsko widoczny kolor!!!!
     ],
     settings : {
         sizeLoader : 1,
@@ -67,7 +68,26 @@ if (Modernizr.canvas ){
             conf.lang =  lang;
         }
 
-        var jewelProto = document.getElementById("square-size");
+        var balllinesV3  = 1;
+        if(typeof  balllinesV2 !==  'undefined' ){
+            conf.action.rows = 8;	
+            conf.action.cols = 8;	
+            conf.action.len = 4; 
+            conf.text.pl.title = 'Kulki v2';
+            conf.text.en.title = 'Ball lines v2';
+            var jewelProto = document.getElementById(  'square-size-checkers' );
+        }else if(typeof  balllinesV3 !==  'undefined' ){
+            conf.action.rows = 10;	
+            conf.action.cols = 10;	
+            conf.action.balls_color_no = 7; 
+            conf.text.pl.title = 'Kulki v3';
+            conf.text.en.title = 'Ball lines v3';
+            var jewelProto = document.getElementById(   'square-size-ten'  );
+        }else{
+            var jewelProto = document.getElementById(  'square-size'  );
+        }
+
+
         var rect = jewelProto.getBoundingClientRect();
         conf.settings.ticSize = rect.width;
 
@@ -79,7 +99,7 @@ if (Modernizr.canvas ){
           conf.action.score = 0;
         }
 
-        display.initialize( conf  );
+        display.initialize( conf );
 
     }, false);
 
