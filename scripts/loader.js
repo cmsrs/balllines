@@ -89,6 +89,7 @@ if (Modernizr.canvas ){
             conf.action.cols = 10;	
             conf.action.len = 6; 
             conf.action.balls_color_no = 6; 
+	    conf.action.balls_next_no = 2;
             conf.text.pl.title = 'Kulki v3';
             conf.text.en.title = 'Ball lines v3';
             var jewelProto = document.getElementById(   'square-size-ten'  );
