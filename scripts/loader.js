@@ -34,7 +34,7 @@ var conf = {
          '#00FF00', //3  gren
          '#00FFFF', //4  light blue
          '#000000', //5  black
-         '#8B4513', //6 brown
+         '#bf80ff', //6 violet 
 
          '#FF00FF', //7  light red
          '#909090', //8 grey
@@ -88,8 +88,8 @@ if (Modernizr.canvas ){
             conf.action.rows = 10;	
             conf.action.cols = 10;	
             conf.action.len = 6; 
-            conf.action.balls_color_no = 6; 
-	    conf.action.balls_next_no = 2;
+            conf.action.balls_color_no = 7; 
+	        conf.action.balls_next_no = 2;
             conf.text.pl.title = 'Kulki v3';
             conf.text.en.title = 'Ball lines v3';
             var jewelProto = document.getElementById(   'square-size-ten'  );
