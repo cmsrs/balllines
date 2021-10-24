@@ -32,7 +32,7 @@ display = (function() {
     function initialize( conf ){
         ver = conf.ver;
         //balllines_matrix_rand = 'balllines_matrix_rand'+ver;
-        //balllines_matrix_next = 'balllines_matrix_next'+ver; 
+        //balllines_matrix_next = 'balllines_matrix_next'+ver;
         //balllines_score = 'balllines_score'+ver;
 
         blank = conf.action.blank;
@@ -189,6 +189,7 @@ display = (function() {
             drawTic(  ticX, ticY,  path.color, 'o', ticPadding );
             matrix_rand[ticX][ticY] =  path.color;
 
+            counter++;
 
             var matrix_rand_before_sum = logic.copyMarix( matrix_rand );
             matrix_rand = logic.sumMatrix( matrix_rand, matrix_next );
@@ -206,7 +207,8 @@ display = (function() {
 
             drawBalls( matrix_rand, 'o', ticPadding, 0  );
 
-            matrix_next =   logic.getRandomMatrix( matrix_rand,  conf.action.balls_next_no );
+            var balls_next_no_tmp0 = logic.getBallsNextNo();
+            matrix_next =   logic.getRandomMatrix( matrix_rand, balls_next_no_tmp0 );
             if( matrix_next == false  ){
                 div_msg.textContent =   conf.text[lang].game_over;
                 game_over = true;

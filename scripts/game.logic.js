@@ -4,18 +4,19 @@ logic = (function() {
     var OPEN = 1;
 
 
-    var 
-        matrix_empty, 
+    var
+        matrix_empty,
         //matrix_ball_to_del,
         score,
 
         cols,
         rows ,
-        len, 
+        len,
         blank ,
-        balls_color_no, 
-        balls_init_no, 
-        balls_next_no; 
+        balls_color_no,
+        balls_init_no,
+        balls_next_no_variety,
+        balls_next_no;
 
 
     function getScore(){
@@ -35,6 +36,7 @@ logic = (function() {
         balls_color_no =  conf_action.balls_color_no;
         balls_init_no = conf_action.balls_init_no;
         balls_next_no = conf_action.balls_next_no;
+        balls_next_no_variety = conf_action.balls_next_no_variety;
     }
 
     /**
@@ -50,10 +52,10 @@ logic = (function() {
                     matrix_out[x][y] = OPEN;
                 }else{
                     matrix_out[x][y] = WALL;
-                } 
+                }
             }
         }
-        return matrix_out; 
+        return matrix_out;
     }
 
     function getEmptyMatrix(){
@@ -74,6 +76,8 @@ logic = (function() {
         var points_empty_arr = getEmptyPoint( matrix_in  );
 
         var random_no = (points_empty_arr.length < balls_no) ? points_empty_arr.length :  balls_no;
+        //console.log(random_no);
+
         //brak miejsca, aby wstawic kulke
         if( random_no == 0 ){
             return false;
@@ -152,19 +156,33 @@ logic = (function() {
         for (var x=0;x<cols;x++) {
             for (var y=0;y<rows;y++) {
                 if( (m_rand[x][y] == blank) && ( m_next[x][y] !=  blank )  ){
-                    m_tmp[x][y] = m_next[x][y]; 
+                    m_tmp[x][y] = m_next[x][y];
                     count_next++;
                 }
             }
         }
 
-        //dokladamy kuleczke, jesli czlowiek wybral to miejsce 
-        if( count_next != balls_next_no  ){
+        var balls_next_no_tmp = getBallsNextNo();
+
+        //dokladamy kuleczke, jesli czlowiek wybral to miejsce
+        if( count_next <  balls_next_no_tmp  ){
+
             var xy = getRandomPointFromMatrix( m_tmp  );
-            m_tmp[xy.x][xy.y] = randomColor(); 
+            m_tmp[xy.x][xy.y] = randomColor();
         }
         return m_tmp;
     }
+
+    //dla variety == 1, co 2x dajemy jedna kulke wiecej
+    function getBallsNextNo(){
+      if(!balls_next_no_variety){
+        return balls_next_no;
+      }
+
+      var isOdd = (counter % 2) ? 0 : 1;
+      return balls_next_no + isOdd;
+    }
+
 
     function randomColor(){
         return Math.floor(Math.random() *  balls_color_no  );
@@ -260,7 +278,7 @@ logic = (function() {
                 score += len;
                 for( j=0; j<item.length; j++ ){
                     // m_out[item[j].x][item[j].y] = blank;
-                    matrix_ball_to_del[item[j].x][item[j].y] = color; 
+                    matrix_ball_to_del[item[j].x][item[j].y] = color;
                 }
             }
         }
@@ -273,7 +291,7 @@ logic = (function() {
 
     function delBall( m_from, m_del ){
         var m_out = copyMarix( m_from );
-    
+
         for (var x=0;x<cols;x++) {
             for (var y=0;y<rows;y++) {
                 if( m_del[x][y] != blank ){
@@ -295,6 +313,7 @@ logic = (function() {
         //getBallToDel : getBallToDel,
         transformMatrix : transformMatrix,
         copyMarix :  copyMarix,
+        getBallsNextNo: getBallsNextNo,
         init : init
     };
 

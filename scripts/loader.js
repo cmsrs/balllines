@@ -34,7 +34,7 @@ var conf = {
          '#00FF00', //3  gren
          '#00FFFF', //4  light blue
          '#000000', //5  black
-         '#bf80ff', //6 violet 
+         '#bf80ff', //6 violet
 
          '#FF00FF', //7  light red
          '#909090', //8 grey
@@ -56,11 +56,14 @@ var conf = {
         blank : -1,
         balls_color_no : 6, //dotyczy kolorow, 8-trudno wygrac
         balls_next_no : 3,
+        balls_next_no_variety: 0,
         balls_init_no : 5,
         score : 0
     }
 
 };
+
+var counter = 0;
 
 if (Modernizr.canvas ){
 
@@ -70,12 +73,13 @@ if (Modernizr.canvas ){
         }
 
         if(typeof  balllinesV2 !==  'undefined' ){
-            conf.ver = '2';	
-            conf.action.rows = 8;	
-            conf.action.cols = 8;	
-            conf.action.len = 4; 
+            conf.ver = '2';
+            conf.action.rows = 8;
+            conf.action.cols = 8;
+            conf.action.len = 4;
             conf.action.balls_next_no = 4;
-            conf.action.balls_color_no = 7; 
+            conf.action.balls_next_no_variety = 1;
+            conf.action.balls_color_no = 7;
             conf.text.pl.title = 'Kulki v2';
             conf.text.en.title = 'Ball lines v2';
             var jewelProto = document.getElementById(  'square-size-checkers' );
@@ -84,12 +88,13 @@ if (Modernizr.canvas ){
 
             var balllines_score =  JSON.parse(localStorage.getItem('balllines_score2' ));
         }else if(typeof  balllinesV3 !==  'undefined' ){
-            conf.ver = '3';	
-            conf.action.rows = 10;	
-            conf.action.cols = 10;	
-            conf.action.len = 6; 
-            conf.action.balls_color_no = 7; 
-	        conf.action.balls_next_no = 2;
+            conf.ver = '3';
+            conf.action.rows = 10;
+            conf.action.cols = 10;
+            conf.action.len = 6;
+            conf.action.balls_color_no = 7;
+	          conf.action.balls_next_no = 2;
+            conf.action.balls_next_no_variety = 1;
             conf.text.pl.title = 'Kulki v3';
             conf.text.en.title = 'Ball lines v3';
             var jewelProto = document.getElementById(   'square-size-ten'  );
@@ -98,7 +103,7 @@ if (Modernizr.canvas ){
 
             var balllines_score =  JSON.parse(localStorage.getItem('balllines_score3' ));
         }else{
-            conf.ver = '1';	
+            conf.ver = '1';
             var jewelProto = document.getElementById(  'square-size'  );
             var rect = jewelProto.getBoundingClientRect();
             conf.settings.ticSize = rect.width;
