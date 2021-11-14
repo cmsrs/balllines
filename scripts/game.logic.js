@@ -179,7 +179,7 @@ logic = (function() {
         return balls_next_no;
       }
 
-      var isOdd = (counter % 2) ? 0 : 1;
+      var isOdd = (counter % balls_next_no_variety) ? 0 : 1;
       return balls_next_no + isOdd;
     }
 
