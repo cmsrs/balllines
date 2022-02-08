@@ -78,7 +78,7 @@ if (Modernizr.canvas ){
             conf.action.cols = 8;
             conf.action.len = 4;
             conf.action.balls_next_no = 4;
-            conf.action.balls_next_no_variety = 3;
+            conf.action.balls_next_no_variety = 10;
             conf.action.balls_color_no = 7;
             conf.text.pl.title = 'Kulki v2';
             conf.text.en.title = 'Ball lines v2';
@@ -94,7 +94,7 @@ if (Modernizr.canvas ){
             conf.action.len = 6;
             conf.action.balls_color_no = 7;
 	          conf.action.balls_next_no = 2;
-            conf.action.balls_next_no_variety = 3;
+            conf.action.balls_next_no_variety = 10;
             conf.text.pl.title = 'Kulki v3';
             conf.text.en.title = 'Ball lines v3';
             var jewelProto = document.getElementById(   'square-size-ten'  );
