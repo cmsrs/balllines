@@ -16,9 +16,20 @@ body
 }
 #square-size, #square-size-checkers, #square-size-ten, #square-size-six{
     position : absolute;
+    left : -1000px;
+}
+
+#square-size{
     width : 1em;
     height : 1em;
-    left : -1000px;
+}
+#square-size-checkers  {
+    width : 1.1em;
+    height : 1.1em;
+}
+#square-size-ten {
+    width : 0.9em;
+    height : 0.9em;
 }
 header{
     margin-top: 3px;
