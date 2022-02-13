@@ -14,7 +14,7 @@ body
     margin-left: 3px;
     border : 1px solid #191919;
 }
-#square-size {
+#square-size, #square-size-checkers, #square-size-ten, #square-size-six{
     position : absolute;
     width : 1em;
     height : 1em;
@@ -52,17 +52,6 @@ h1#title{
     margin-bottom: 3px;
     text-align:center;
 }
-/*
-#display_text {
-    text-align:center;
-}
-#anim {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    background-color: #174f82;
-}
-*/
 #score{
     margin-left: 3px;
     margin-top: 6px;
@@ -71,41 +60,11 @@ h1#title{
 #score .you{
     float: left;
 }
-/*
-#score .cpu{
-    float: right;
-}
-*/
 #score span.red{
     color: #ff5050;
     font-weight:bold;
 }
-
 #clear{
     float: right;
     cursor: pointer;
 }
-
-/*
-#level{
-    margin-top: 5px;
-    margin-bottom: 6px;
-    font-size: 22px;
-}
-#level > div{
-    float: left;
-}
-#level .circle{
-    float: left;
-}
-#level .wrap_level{
-    float: left;
-}
-#level .wrap_level input{
-    display:inline;
-    margin-left: 30px;
-}
-#level .label{
-    float: left;
-}
-*/
