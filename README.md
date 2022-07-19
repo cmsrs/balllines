@@ -23,3 +23,13 @@ git clone  https://github.com/cmsrs/balllines.git
 cd balllines/
 firefox ./index.html
 ```
+
+Install as Android app:
+
+https://play.google.com/store/apps/details?id=pl.cmsrs.balllines
+
+https://play.google.com/store/apps/details?id=pl.cmsrs.balllinesv2
+
+https://play.google.com/store/apps/details?id=pl.cmsrs.balllinesv3
+
+
