@@ -130,7 +130,7 @@ display = (function() {
         relY = e.clientY - rect.top;
 
         ticX = Math.floor( (relX / rect.width) * cols);
-        ticY = Math.floor( (relY / rect.width) * rows);
+        ticY = Math.floor( (relY / rect.width) * rows); //it should be rect.height instead of rect.width
 
         // gdy pomlil nam sie punkt startu
         if( (  path.init == 1  ) && (path.start_x == ticX) &&  ( path.start_y == ticY)  ){
